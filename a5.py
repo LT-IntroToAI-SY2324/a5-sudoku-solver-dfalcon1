@@ -139,8 +139,14 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
-        pass
+        self.rows[row][column]= assignment
+        self.num_nums_placed += 1
 
+        for i in range(self.size):
+            remove_if_exists(self.rows[row][i],assignment)
+            remove_if_exists(self.rows[i][column],assignment)
+        for i, j in self.subgrid_coordinates(row, column):
+            remove_if_exists(self.row[i][j],assignment)
 
 def DFS(state: Board) -> Board:
     """Performs a depth first search. Takes a Board and attempts to assign values to
@@ -174,10 +180,13 @@ def BFS(state: Board) -> Board:
 
 if __name__ == "__main__":
     # uncomment the below lines once you've implemented the board class
-   
+   b = Board()
+   print(b)
+   b.print_pretty()
+   b.update(0,0,4)
     # # CODE BELOW HERE RUNS YOUR BFS/DFS
     # print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
-
+   b.print_pretty()
     # def test_dfs_or_bfs(use_dfs: bool, moves: List[Tuple[int, int, int]]) -> None:
     #     b = Board()
     #     # make initial moves to set up board
@@ -325,4 +334,3 @@ if __name__ == "__main__":
     # print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
     # test_dfs_or_bfs(False, second_moves)
-    pass
