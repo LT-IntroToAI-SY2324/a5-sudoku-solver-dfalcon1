@@ -282,38 +282,38 @@ if __name__ == "__main__":
         (8, 7, 5),
     ]
     # #Create a sudoku board.
-    # b = Board()
+    b = Board()
     # #Place the 28 assignments in first_moves on the board.
-    # for trip in first_moves:
-    #     b.rows[trip[0]][trip[1]] = trip[2]
-    # #NOTE - the above code only *puts* the numbers on the board, but doesn't
-    # #   do the work that update does (remove numbers from other lists, etc).
+    for trip in first_moves:
+        b.rows[trip[0]][trip[1]] = trip[2]
+    #NOTE - the above code only *puts* the numbers on the board, but doesn't
+    #   do the work that update does (remove numbers from other lists, etc).
 
-    # #I'm going to now alter 3 lists on the board to make them shorter (more
-    # #   constrained. 
-    # remove_if_exists(b.rows[0][0], 8)
-    # remove_if_exists(b.rows[0][0], 7)
-    # remove_if_exists(b.rows[0][0], 3)
-    # remove_if_exists(b.rows[0][0], 2)
-    # remove_if_exists(b.rows[4][8], 8)
-    # remove_if_exists(b.rows[4][8], 1)
-    # remove_if_exists(b.rows[4][8], 2)
-    # remove_if_exists(b.rows[4][8], 3)
-    # remove_if_exists(b.rows[4][8], 4)
-    # remove_if_exists(b.rows[6][7], 2)
-    # remove_if_exists(b.rows[6][7], 3)
-    # remove_if_exists(b.rows[6][7], 5)
-    # remove_if_exists(b.rows[6][7], 6)
-    # #we removed 5 items from positions (4,8) so that should now be the most
-    # #  constrained.
-    # assert b.find_most_constrained_cell() == (4,8), "find most constrained cell test 1"
-    # assert b.failure_test() == False, "failure test test 1"
-    # assert b.goal_test() == False, "goal test test 1"
+    #I'm going to now alter 3 lists on the board to make them shorter (more
+    #   constrained. 
+    remove_if_exists(b.rows[0][0], 8)
+    remove_if_exists(b.rows[0][0], 7)
+    remove_if_exists(b.rows[0][0], 3)
+    remove_if_exists(b.rows[0][0], 2)
+    remove_if_exists(b.rows[4][8], 8)
+    remove_if_exists(b.rows[4][8], 1)
+    remove_if_exists(b.rows[4][8], 2)
+    remove_if_exists(b.rows[4][8], 3)
+    remove_if_exists(b.rows[4][8], 4)
+    remove_if_exists(b.rows[6][7], 2)
+    remove_if_exists(b.rows[6][7], 3)
+    remove_if_exists(b.rows[6][7], 5)
+    remove_if_exists(b.rows[6][7], 6)
+    #we removed 5 items from positions (4,8) so that should now be the most
+    #  constrained.
+    assert b.find_most_constrained_cell() == (4,8), "find most constrained cell test 1"
+    assert b.failure_test() == False, "failure test test 1"
+    assert b.goal_test() == False, "goal test test 1"
 
-    # b.rows[4][3] = []
-    # assert b.find_most_constrained_cell() == (4,3), "find most constrained cell test 2"
-    # assert b.failure_test() == True, "failure test test 2"
-    # print("All part 1 tests passed!")
+    b.rows[4][3] = []
+    assert b.find_most_constrained_cell() == (4,3), "find most constrained cell test 2"
+    assert b.failure_test() == True, "failure test test 2"
+    print("All part 1 tests passed!")
 
     # ##Now, let's write some quick tests to check update!
     # #Create a sudoku board.
