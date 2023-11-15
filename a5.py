@@ -180,9 +180,12 @@ def DFS(state: Board) -> Board:
     """
     the_stack = Stack()
     the_stack.push(state)
+    count = 0
     while not the_stack.is_empty():
         curr = the_stack.pop()
+        count += 1
         if curr.goal_test():
+            print(f"interation number {count}")
             return curr
         elif not curr.failure_test():
             row, col = curr.find_most_constrained_cell()
@@ -191,9 +194,7 @@ def DFS(state: Board) -> Board:
                 cpy.update(row, col, sel)
                 the_stack.push(cpy)
             sel = curr.rows[row][col]
-            print(row,col, sel[0])
             curr.update(row, col, sel[0])
-            curr.print_pretty()
             the_stack.push(curr)
     return None
 
@@ -212,7 +213,23 @@ def BFS(state: Board) -> Board:
     Returns:
         either None in the case of invalid input or a solved board
     """
-    pass
+    the_queue = Queue()
+    count = 0
+    the_queue.push(state)
+    while not the_queue.is_empty():
+        curr = the_queue.pop()
+        count += 1
+        if curr.goal_test():
+            print(f"interation number {count}")
+            return curr
+        elif not curr.failure_test():
+            row, col = curr.find_most_constrained_cell()
+            for sel in curr.rows[row][col]:
+                cpy = copy.deepcopy(curr)
+                cpy.update(row, col, sel)
+                the_queue.push(cpy)
+            
+    return None
 
 
 if __name__ == "__main__":
@@ -343,39 +360,33 @@ if __name__ == "__main__":
     for trip in first_moves:
         g.update(trip[0],trip[1],trip[2])
         g.print_pretty()
-    print(g)
-    DFS(g)
-    
-    # g.rows[5][3] = []
-    # print(g.find_most_constrained_cell())
-    # print(g.failure_test())
-    # #From the above print statement, you can see which numbers
-    # #  have been assigned to the board, and then create test
-    # #  cases by looking at the board and listing what values are
-    # #  still possible for a specific cell. I have created
-    # #  2 such test cases like that for you. 
-    # assert g.rows[0][2] == [2,5,6], "update test 1"
-    # assert g.rows[5][5] == [3,7,9], "update test 2"
-    # assert g.num_nums_placed == 28, "update test 3"
-    # assert g.find_most_constrained_cell() == (1,7), "fmc test"
-    # assert g.failure_test() == False, "failure test test"
-    # assert g.goal_test() == False, "goal test test"
-    # g.num_nums_placed = 81
-    # assert g.goal_test() == True, "goal test test"
-    # print("All part 2 tests passed! Testing DFS and BFS next:")
+    # From the above print statement, you can see which numbers
+    #  have been assigned to the board, and then create test
+    #  cases by looking at the board and listing what values are
+    #  still possible for a specific cell. I have created
+    #  2 such test cases like that for you. 
+    assert g.rows[0][2] == [2,5,6], "update test 1"
+    assert g.rows[5][5] == [3,7,9], "update test 2"
+    assert g.num_nums_placed == 28, "update test 3"
+    assert g.find_most_constrained_cell() == (1,7), "fmc test"
+    assert g.failure_test() == False, "failure test test"
+    assert g.goal_test() == False, "goal test test"
+    g.num_nums_placed = 81
+    assert g.goal_test() == True, "goal test test"
+    print("All part 2 tests passed! Testing DFS and BFS next:")
 
-    # print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(True, first_moves)
+    test_dfs_or_bfs(True, first_moves)
 
-    # print("<<<<<<<<<<<<<< Testing DFS on Second Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing DFS on Second Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(True, second_moves)
+    test_dfs_or_bfs(True, second_moves)
 
-    # print("<<<<<<<<<<<<<< Testing BFS on First Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing BFS on First Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(False, first_moves)
+    test_dfs_or_bfs(False, first_moves)
 
-    # print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(False, second_moves)
+    test_dfs_or_bfs(False, second_moves)
